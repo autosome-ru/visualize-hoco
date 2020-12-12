@@ -34,20 +34,19 @@ def draw_svg(pcm_path):
     return out_path
 
 
-def get_image_code_for_json(tfs_dict):
-    out_dict = {}
-    for t_factor in tfs_dict:
-        out_dict[t_factor] = []
-        for index, exp in enumerate(tfs_dict[t_factor]):
+def get_image_code_for_json(tfs_dict, name):
+    tf_data = []
+    if tfs_dict.get(name):
+        for index, exp in enumerate(tfs_dict[name]):
             if index % 100 == 0:
-                print('Done {} motifs for {}'.format(index, t_factor))
+                print('Done {} motifs for {}'.format(index, name))
             if exp.get('motif_image') is None:
                 if exp['pcm_path'] is None:
                     continue
                 exp['motif_image'] = draw_svg(exp['pcm_path'])
             exp['motif_image'] = get_image_code(exp['motif_image'])
-            out_dict[t_factor].append(exp)
-    return out_dict
+            tf_data.append(exp)
+    return tf_data
 
 @app.route('/hoco/<name>')
 def hello(name=None, dictionary=None):
@@ -77,8 +76,7 @@ def hello(name=None, dictionary=None):
                }
            ],
         }
-    diction = get_image_code_for_json(dictionary)
-    tf_data = diction.get(name)
+    tf_data = get_image_code_for_json(dictionary, name)
     if not name or not tf_data:
         print('Error with {}'.format(name))
         return 'Error', 404
