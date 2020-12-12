@@ -80,7 +80,6 @@ def hello(name=None, dictionary=None):
     if not name or not tf_data:
         print('Error with {}'.format(name))
         return 'Error', 404
-    print(render_template('tf_analysis.html', tf_data=tf_data, name=name, length=len(tf_data)))
     return render_template('tf_analysis.html', tf_data=tf_data, name=name, length=len(tf_data))
 
 
