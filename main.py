@@ -47,7 +47,6 @@ def get_image_code_for_json(tfs_dict):
                 exp['motif_image'] = draw_svg(exp['pcm_path'])
             exp['motif_image'] = get_image_code(exp['motif_image'])
             out_dict[t_factor].append(exp)
-            print(out_dict[t_factor])
     return out_dict
 
 @app.route('/hoco/<name>')
@@ -83,6 +82,7 @@ def hello(name=None, dictionary=None):
     if not name or not tf_data:
         print('Error with {}'.format(name))
         return 'Error', 404
+    print(render_template('tf_analysis.html', tf_data=tf_data, name=name, length=len(tf_data)))
     return render_template('tf_analysis.html', tf_data=tf_data, name=name, length=len(tf_data))
 
 
