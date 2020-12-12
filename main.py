@@ -17,7 +17,7 @@ def get_image_code(svg):
     else:
         with open(svg, 'rb') as svg_image:
             result = svg_image.read()
-
+        print('Encoding image')
         # os.remove(svg)
     return 'data:image/png;base64,' + b64encode(result).decode('ascii')
 
