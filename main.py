@@ -17,7 +17,6 @@ def get_image_code(svg):
     else:
         with open(svg, 'rb') as svg_image:
             result = svg_image.read()
-        print('Encoding image')
         # os.remove(svg)
     return 'data:image/png;base64,' + b64encode(result).decode('ascii')
 
@@ -48,6 +47,7 @@ def get_image_code_for_json(tfs_dict):
                 exp['motif_image'] = draw_svg(exp['pcm_path'])
             exp['motif_image'] = get_image_code(exp['motif_image'])
             out_dict[t_factor].append(exp)
+            print(out_dict[t_factor])
     return out_dict
 
 @app.route('/hoco/<name>')
