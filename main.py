@@ -81,6 +81,7 @@ def hello(name=None, dictionary=None):
     diction = get_image_code_for_json(dictionary)
     tf_data = diction.get(name)
     if not name or not tf_data:
+        print('Error with {}'.format(name))
         return 'Error', 404
     return render_template('tf_analysis.html', tf_data=tf_data, name=name, length=len(tf_data))
 
